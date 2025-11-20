@@ -12,6 +12,9 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     //variavel para receber se é filho ou pai (para evitar de ficar atras da grid)
     public Transform parentDepoisDoDrag;
 
+    public Transform executionGrid;
+
+    public static List<GameObject> sequenciaExecucao = new List<GameObject>();
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -43,5 +46,31 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
         //volta a ficar visivel pro mouse
         image.raycastTarget = true;
+
+
+
+        // Checar se o objeto está em cima da grid de execução
+        var results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        foreach (var r in results)
+        {
+            // coloca como filho da grid
+            transform.SetParent(r.gameObject.transform, false);
+
+            // ADICIONA O BLOCO À SEQUÊNCIA
+            if (!sequenciaExecucao.Contains(gameObject))
+                sequenciaExecucao.Add(gameObject);
+
+            return;
+        }
+
+
+        // Se não estiver, volta para o lugar original
+        transform.SetParent(parentDepoisDoDrag);
+
     }
+
+       
+    
 }
