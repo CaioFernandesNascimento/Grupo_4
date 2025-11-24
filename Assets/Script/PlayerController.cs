@@ -7,27 +7,43 @@ public class PlayerController : MonoBehaviour
     public float velocidade = 5f;           // Velocidade do movimento
     public bool movendo = false;
 
+    // ------------------------------
+    // Verifica se o caminho está livre usando Raycast
+    // ------------------------------
+    private bool PodeMover(Vector3 direcao)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(
+            transform.position,
+            direcao,
+            distanciaMovimento,
+            LayerMask.GetMask("Default") // só colide com cenário
+        );
+
+        return hit.collider == null;
+    }
+
+
     public void MoverParaCima()
     {
-        if (!movendo)
+        if (!movendo && PodeMover(Vector3.up))
             StartCoroutine(Mover(Vector3.up));
     }
 
     public void MoverParaBaixo()
     {
-        if (!movendo)
+        if (!movendo && PodeMover(Vector3.down))
             StartCoroutine(Mover(Vector3.down));
     }
 
     public void MoverParaDireita()
     {
-        if (!movendo)
+        if (!movendo && PodeMover(Vector3.right))
             StartCoroutine(Mover(Vector3.right));
     }
 
     public void MoverParaEsquerda()
     {
-        if (!movendo)
+        if (!movendo && PodeMover(Vector3.left))
             StartCoroutine(Mover(Vector3.left));
     }
 
