@@ -15,6 +15,9 @@ public class TutorialPanels : MonoBehaviour
     [SerializeField] private GameObject painelTutorialBotaoRun;
     [SerializeField] private GameObject painelTutorialBotaoRunBackground;
 
+    [SerializeField] private GameObject painelTutorialObjetivo;
+    [SerializeField] private GameObject painelTutorialObjetivoBackground;
+
     [SerializeField] private GameObject playerImage;
 
     public void abrirTutorialVoce()
@@ -26,12 +29,21 @@ public class TutorialPanels : MonoBehaviour
         painelTutorialVoceBackground.SetActive(true);
     }
 
-
-    public void abrirTutorialComandos()
+    public void abrirTutorialObjetivo()
     {
         painelTutorialVoce.SetActive(false);
         playerImage.SetActive(false);
         painelTutorialVoceBackground.SetActive(false);
+
+        painelTutorialObjetivo.SetActive(true);
+        painelTutorialObjetivoBackground.SetActive(true);
+    }
+
+
+    public void abrirTutorialComandos()
+    {
+        painelTutorialObjetivo.SetActive(false);
+        painelTutorialObjetivoBackground.SetActive(false);
 
         painelTutorialComandos.SetActive(true);
         painelTutorialComandosBackground.SetActive(true);
